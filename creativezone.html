@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Draw with Nexa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      margin: 0;
+      background-color: #111;
+      color: #fff;
+    }
+    .toolbar {
+      background: #222;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10px;
+      justify-content: center;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .toolbar > * {
+      background: #333;
+      border: none;
+      padding: 8px 12px;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+    .toolbar input[type="color"], .toolbar input[type="range"] {
+      padding: 0;
+      height: 34px;
+      border-radius: 6px;
+      background: #333;
+      cursor: pointer;
+    }
+    .toolbar > *:hover {
+      background: #555;
+    }
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      background-color: white;
+      border: 4px solid #444;
+      border-radius: 10px;
+      touch-action: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button onclick="setTool('brush')">🖌️ Brush</button>
+    <button onclick="setTool('eraser')">🧽 Eraser</button>
+    <button onclick="setTool('fill')">🪣 Fill</button>
+    <button onclick="setTool('line')">📏 Line</button>
+    <button onclick="setTool('rect')">⬛ Rect</button>
+    <button onclick="setTool('circle')">⚪ Circle</button>
+    <input type="color" id="colorPicker" />
+    <input type="range" id="brushSize" min="1" max="30" value="5" />
+    <button onclick="undo()">↩️ Undo</button>
+    <button onclick="redo()">↪️ Redo</button>
+    <button onclick="clearCanvas()">🗑️ Clear</button>
+    <button onclick="download()">💾 Download</button>
+    <input type="file" id="imgUpload" accept="image/*" />
+  </div>
+
+  <canvas id="canvas" width="1000" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let painting = false;
+    let tool = 'brush';
+    let color = '#000000';
+    let brushSize = 5;
+    let startX, startY;
+    const undoStack = [];
+    const redoStack = [];
+
+    function startPosition(e) {
+      painting = true;
+      saveState();
+      const pos = getPos(e);
+      startX = pos.x;
+      startY = pos.y;
+      if (tool === 'fill') {
+        floodFill(pos.x, pos.y, hexToRgb(color));
+        painting = false;
+      }
+    }
+
+    function endPosition() {
+      painting = false;
+      ctx.beginPath();
+    }
+
+    function draw(e) {
+      if (!painting || tool === 'fill') return;
+      const pos = getPos(e);
+      if (tool === 'brush' || tool === 'eraser') {
+        ctx.lineWidth = brushSize;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = tool === 'eraser' ? '#ffffff' : color;
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      } else if (['line', 'rect', 'circle'].includes(tool)) {
+        redrawCanvas(); // clear preview
+        const width = pos.x - startX;
+        const height = pos.y - startY;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = brushSize;
+        if (tool === 'line') {
+          ctx.beginPath();
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(pos.x, pos.y);
+          ctx.stroke();
+        } else if (tool === 'rect') {
+          ctx.strokeRect(startX, startY, width, height);
+        } else if (tool === 'circle') {
+          ctx.beginPath();
+          ctx.ellipse(startX + width/2, startY + height/2, Math.abs(width)/2, Math.abs(height)/2, 0, 0, 2 * Math.PI);
+          ctx.stroke();
+        }
+      }
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function setTool(t) {
+      tool = t;
+    }
+
+    document.getElementById("colorPicker").addEventListener("change", e => {
+      color = e.target.value;
+    });
+
+    document.getElementById("brushSize").addEventListener("input", e => {
+      brushSize = e.target.value;
+    });
+
+    canvas.addEventListener("mousedown", startPosition);
+    canvas.addEventListener("mouseup", endPosition);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("touchstart", startPosition);
+    canvas.addEventListener("touchend", endPosition);
+    canvas.addEventListener("touchmove", draw);
+
+    function clearCanvas() {
+      saveState();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function download() {
+      const link = document.createElement('a');
+      link.download = 'nexa_drawing.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+
+    function saveState() {
+      undoStack.push(canvas.toDataURL());
+      if (undoStack.length > 30) undoStack.shift();
+    }
+
+    function undo() {
+      if (undoStack.length === 0) return;
+      redoStack.push(canvas.toDataURL());
+      const img = new Image();
+      img.src = undoStack.pop();
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+      };
+    }
+
+    function redo() {
+      if (redoStack.length === 0) return;
+      const img = new Image();
+      img.src = redoStack.pop();
+      img.onload = () => {
+        saveState();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+      };
+    }
+
+    function redrawCanvas() {
+      if (undoStack.length === 0) return;
+      const img = new Image();
+      img.src = undoStack[undoStack.length - 1];
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+      };
+    }
+
+    document.getElementById('imgUpload').addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+      const img = new Image();
+      img.onload = function () {
+        ctx.drawImage(img, 100, 100, 200, 200);
+      };
+      img.src = URL.createObjectURL(file);
+    });
+
+    // Optional: Flood Fill Tool (simplified, uses pixel match)
+    function floodFill(x, y, fillColor) {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const width = imageData.width;
+      const startIdx = (y * width + x) * 4;
+      const startColor = [data[startIdx], data[startIdx+1], data[startIdx+2], data[startIdx+3]];
+      const visited = new Set();
+
+      const matchColor = (i) => {
+        return data[i] === startColor[0] &&
+               data[i+1] === startColor[1] &&
+               data[i+2] === startColor[2];
+      };
+
+      const fill = (x, y) => {
+        const i = (y * width + x) * 4;
+        if (x < 0 || y < 0 || x >= width || y >= canvas.height || visited.has(i) || !matchColor(i)) return;
+        visited.add(i);
+        data[i] = fillColor.r;
+        data[i+1] = fillColor.g;
+        data[i+2] = fillColor.b;
+        data[i+3] = 255;
+        fill(x+1, y);
+        fill(x-1, y);
+        fill(x, y+1);
+        fill(x, y-1);
+      };
+
+      fill(x, y);
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    function hexToRgb(hex) {
+      hex = hex.replace("#", "");
+      return {
+        r: parseInt(hex.substring(0, 2), 16),
+        g: parseInt(hex.substring(2, 4), 16),
+        b: parseInt(hex.substring(4, 6), 16),
+      };
+    }
+  </script>
+  <!-- Back to Home Button -->
+<!-- Back to Home Button -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back to Home</title>
+    <style>
+        /* General Body and Layout Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Back to Home Section Styling */
+        #backToHomeSection {
+            background-color: #1a1a1a;
+            padding: 15px;
+            text-align: center;
+        }
+
+        #backToHomeSection .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .back-to-home-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.2em;
+            padding: 12px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .back-to-home-btn {
+                font-size: 1em;
+                padding: 10px 30px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            #backToHomeSection {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Back to Home Section -->
+<section id="backToHomeSection">
+    <div class="content">
+        <a href="index.html" class="back-to-home-btn">Back to Home</a>
+    </div>
+</section>
+
+</body>
+</html>

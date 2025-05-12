@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS CSS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nexa - Hero Section</title>
+  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexa - About</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">NEXA</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  
+  
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>Welcome to <span class="brand">Nexa</span></h1>
+      <p>Where <span class="highlight">Art</span> meets <span class="highlight">Precision</span></p>
+      <div class="tagline">
+        <h2 class="motto">Crafting <span class="highlight">Creativity</span> & <span class="highlight">Performance</span></h2>
+        <p class="subtext">From strokes of imagination to circuits of power — welcome to the fusion of Art & Technology.</p>
+      </div>      
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container" data-aos="fade-up">
+      <h2>About <span class="brand">Nexa</span></h2>
+      <p class="intro" data-aos="fade-up" data-aos-delay="100">
+        Nexa is a creative hub blending artistic expression with high-performance tech. From custom portraits to precision PC builds, we craft experiences that speak to both emotion and innovation.
+      </p>
+  
+      <div class="about-cards">
+        <div class="card" data-aos="fade-right" data-aos-delay="200">
+          <img src="https://via.placeholder.com/400x250?text=Nexa+Art" alt="Nexa Art">
+          <h3>🎨 Nexa Art</h3>
+          <p>Explore a world of custom portraits, digital paintings, logos, and expressive artworks crafted with passion.</p>
+        </div>
+  
+        <div class="card" data-aos="fade-left" data-aos-delay="300">
+          <img src="https://via.placeholder.com/400x250?text=Nexa+Custom+Forge" alt="Nexa Custom Forge">
+          <h3>⚙️ Nexa Custom Forge</h3>
+          <p>High-end PC builds designed for performance and aesthetics — where every rig is a custom masterpiece.</p>
+        </div>
+      </div>
+    </div>
+  </section>  
+
+  <section class="services" id="services">
+    <div class="container">
+      <h2>Our <span class="brand">Services</span></h2>
+      <p class="intro">Nexa blends creativity with technology to deliver standout solutions.</p>
+  
+      <div class="service-cards">
+        <div class="service-card">
+          <i class="fas fa-paint-brush icon"></i>
+          <h3>Custom Artwork</h3>
+          <p>From realistic portraits to stylized illustrations, tailored for personal or commercial use.</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-desktop icon"></i>
+          <h3>PC Builds</h3>
+          <p>High-performance, aesthetic-focused PC builds for gamers, creators, and professionals.</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-pen-nib icon"></i>
+          <h3>Brand Design</h3>
+          <p>Logo creation, visual identity development, and graphic design for brands and startups.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add this section in your existing main HTML file -->
+<section id="creativeZoneSection">
+  <div class="content">
+    <h2>Unleash Your Creativity</h2>
+    <p>Explore the world of digital art with our interactive drawing page.</p>
+    <button onclick="window.location.href='creativezone.html';" class="cta-btn">Start Drawing</button>
+  </div>
+</section>
+
+<section class="pc-builder-section" id="pcbuilder">
+  <div class="pc-builder-container">
+    <h2>⚙️ Build Your Dream PC</h2>
+    <p>Customize your own rig with live pricing, components, and smart suggestions — tailored for India.</p>
+    <a href="pcbuilder.html" class="pc-builder-btn">🛠 Start Building</a>
+  </div>
+</section>
+
+
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Contact <span class="brand">Nexa</span></h2>
+      <p class="intro">
+        Have a project in mind? Whether it's an art commission or a custom PC build, feel free to reach out.
+      </p>
+  
+      <form class="contact-form" action="https://formspree.io/f/xnndbngq" method="POST">
+
+        <input type="hidden" name="_redirect" value="Thankyou.html">
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required placeholder="Enter your name" />
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email" />
+        </div>
+  
+        <div class="form-group">
+          <label for="type">Commission Type</label>
+          <select id="type" name="type" required>
+            <option value="">Select an option</option>
+            <option value="art">🎨 Art Commission</option>
+            <option value="pc">⚙️ Custom PC Build</option>
+            <option value="other">Other Inquiry</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="message">Details / Message</label>
+          <textarea id="message" name="message" rows="5" required placeholder="Describe your idea or request..."></textarea>
+        </div>
+  
+        <button type="submit" class="btn">📩 Send Inquiry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Nexa Shop Section -->
+<!-- Nexa Shop Section -->
+<!-- Nexa Shop Preview Section -->
+<section id="nexa-shop">
+  <div class="container">
+    <h2>Nexa Shop</h2>
+    <p class="subtitle">Coming Soon: Curated kits, merch, and digital goodies</p>
+    
+    <div class="shop-items">
+      <div class="item">🎨 Art Kits</div>
+      <div class="item">🖥️ PC Starter Packs</div>
+      <div class="item">👕 Nexa Merch</div>
+      <div class="item">💻 Digital Downloads</div>
+    </div>
+
+    <p class="coming-soon">🚧 Launching Soon</p>
+    <a href="nexa-shop.html" class="shop-btn">Preview Store</a>
+  </div>
+</section>
+
+
+
+  <section class="connect-section" id="connect">
+    <div class="container">
+      <h2>Connect with <span class="highlight">Nexa</span></h2>
+      <p class="connect-subtitle">Follow our creative journey or get in touch for commissions and collaborations.</p>
+  
+      <div class="social-buttons">
+        <a href="https://instagram.com/nexa.art_design" target="_blank" class="btn insta">🎨 nexa.art_design</a>
+        <a href="https://instagram.com/nexa.art_" target="_blank" class="btn insta">🖌 nexa.art_</a>
+        <a href="https://instagram.com/nexa.custom_forge" target="_blank" class="btn insta">🛠 nexa.custom_forge</a>
+        <a href="https://wa.me/918849436475" target="_blank" class="btn whatsapp">💬 WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+
+  
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <h2>Nexa</h2>
+        <p>Design. Art. Custom Builds.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#connect">Connect</a>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><strong>Art & Designs:</strong><br><a href="mailto:nexa.art.designs@gmail.com">nexa.art.designs@gmail.com</a></p>
+        <p><strong>Custom Forge:</strong><br><a href="mailto:nexacustomforge@gmail.com">nexacustomforge@gmail.com</a></p>
+      </div>
+
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <a href="https://instagram.com/nexa.art_design" target="_blank">Instagram</a>
+        <a href="https://wa.me/918849436475" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+
+    <hr class="footer-divider">
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 <strong>Nexa</strong>. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+  
+  
+  
+  <script>
+    const section = document.querySelector('.connect-section');
+    const buttons = document.querySelectorAll('.connect-section .btn');
+  
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          buttons.forEach(btn => btn.style.animationPlayState = 'running');
+        }
+      });
+    });
+  
+    observer.observe(section);
+  </script>
+  
+  
+  
+
+  <!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+  
+</body>
+</html>

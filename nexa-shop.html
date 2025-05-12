@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexa Shop - Kits & Merchandise</title>
+    <style>
+        /* General Body and Layout */
+        body {
+            background-color: #121212;
+            color: #f1f1f1;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header .back-button {
+            color: #f1f1f1;
+            text-decoration: none;
+            font-size: 18px;
+            margin-right: 20px;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 36px;
+        }
+
+        /* Shop Container */
+        .shop-container {
+            margin: 20px;
+        }
+
+        .shop-category {
+            margin-bottom: 40px;
+        }
+
+        .shop-category h2 {
+            font-size: 32px;
+            color: #f1f1f1;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        /* Product Cards */
+        .product-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            background-color: #333;
+            border-radius: 8px;
+            width: 250px;
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product-card h3 {
+            color: #f1f1f1;
+            margin-top: 15px;
+            font-size: 20px;
+        }
+
+        .product-card p {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #ffcc00;
+            margin-top: 10px;
+        }
+
+        .buy-btn {
+            background-color: #ffcc00;
+            color: #121212;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .buy-btn:hover {
+            background-color: #e6b800;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon {
+            background-color: #222;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .coming-soon-message {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #ccc;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Shop Link Section (Main Page) */
+        #shop-link {
+            background-color: #121212;
+            padding: 40px;
+            text-align: center;
+        }
+
+        #shop-link h2 {
+            color: #f1f1f1;
+            font-size: 28px;
+        }
+
+        #shop-link p {
+            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .shop-btn {
+            background-color: #ffcc00;
+            color: #121212;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .shop-btn:hover {
+            background-color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <h1>Nexa Shop</h1>
+        </div>
+    </header>
+
+    <section class="shop-container">
+        <div class="shop-category">
+            <h2>Art Kits</h2>
+            <div class="product-list">
+                <div class="product-card">
+                    <img src="art-kit.jpg" alt="Art Kit">
+                    <h3>Brushes & Sketchbooks</h3>
+                    <p>Everything you need to start your art journey!</p>
+                    <p class="price">₹999</p>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+                <div class="product-card">
+                    <img src="art-accessory.jpg" alt="Art Accessory">
+                    <h3>Art Accessories</h3>
+                    <p>Upgrade your creative tools</p>
+                    <p class="price">₹499</p>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-category">
+            <h2>PC Kits</h2>
+            <div class="product-list">
+                <div class="product-card">
+                    <img src="pc-kit.jpg" alt="PC Kit">
+                    <h3>PC Starter Kit</h3>
+                    <p>Complete starter kit for your custom PC build.</p>
+                    <p class="price">₹15000</p>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-category">
+            <h2>Merchandise</h2>
+            <div class="product-list">
+                <div class="product-card">
+                    <img src="sticker.jpg" alt="Sticker">
+                    <h3>Nexa Stickers</h3>
+                    <p>Show your Nexa pride with our cool stickers!</p>
+                    <p class="price">₹199</p>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+                <div class="product-card">
+                    <img src="poster.jpg" alt="Poster">
+                    <h3>Nexa Posters</h3>
+                    <p>Decorate your space with Nexa art!</p>
+                    <p class="price">₹399</p>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+                <div class="product-card">
+                    <img src="t-shirt.jpg" alt="T-Shirt">
+                    <h3>Nexa T-Shirt</h3>
+                    <p>Wear your Nexa spirit!</p>
+                    <p class="price">₹599</p>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-category coming-soon">
+            <h2>Digital Downloads</h2>
+            <div class="coming-soon-message">
+                <p>Coming Soon! Stay tuned for exclusive Nexa wallpapers and logo templates.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Nexa Art & Forge. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexa Custom PC Builder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Nexa PC Builder</h1>
+    <p>Build your dream PC — Indian Prices</p>
+  </header>
+
+  <main>
+    <form id="pc-builder-form">
+      <section class="components">
+        <h2>Core Components</h2>
+        <label>CPU:
+          <select id="cpu">
+            <option value="Intel i5|18000">Intel i5 - ₹18,000</option>
+            <option value="Intel i7|27000">Intel i7 - ₹27,000</option>
+            <option value="AMD Ryzen 5|16000">Ryzen 5 - ₹16,000</option>
+          </select>
+        </label>
+
+        <label>GPU:
+          <select id="gpu">
+            <option value="NVIDIA RTX 3060|35000">RTX 3060 - ₹35,000</option>
+            <option value="NVIDIA RTX 4070|62000">RTX 4070 - ₹62,000</option>
+            <option value="AMD RX 7600|28000">RX 7600 - ₹28,000</option>
+          </select>
+        </label>
+
+        <label>RAM:
+          <select id="ram">
+            <option value="16GB DDR4|3500">16GB DDR4 - ₹3,500</option>
+            <option value="32GB DDR4|6200">32GB DDR4 - ₹6,200</option>
+          </select>
+        </label>
+
+        <label>Storage:
+          <select id="storage">
+            <option value="512GB SSD|3000">512GB SSD - ₹3,000</option>
+            <option value="1TB SSD|5500">1TB SSD - ₹5,500</option>
+          </select>
+        </label>
+
+        <label>Motherboard:
+          <select id="motherboard">
+            <option value="B550M|8000">B550M - ₹8,000</option>
+            <option value="Z790|15000">Z790 - ₹15,000</option>
+          </select>
+        </label>
+
+        <label>PSU:
+          <select id="psu">
+            <option value="550W|4000">550W - ₹4,000</option>
+            <option value="750W Modular|6500">750W Modular - ₹6,500</option>
+          </select>
+        </label>
+
+        <label>Case:
+          <select id="case">
+            <option value="NZXT H510|6000">NZXT H510 - ₹6,000</option>
+            <option value="Cooler Master RGB|7500">Cooler Master RGB - ₹7,500</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="peripherals">
+        <h2>Peripherals</h2>
+        <label>Monitor:
+          <select id="monitor">
+            <option value="None|0">None</option>
+            <option value="24-inch FHD|9000">24-inch FHD - ₹9,000</option>
+            <option value="27-inch 2K|16000">27-inch 2K - ₹16,000</option>
+          </select>
+        </label>
+
+        <label>Keyboard:
+          <select id="keyboard">
+            <option value="None|0">None</option>
+            <option value="Mechanical RGB|3500">Mechanical RGB - ₹3,500</option>
+          </select>
+        </label>
+
+        <label>Mouse:
+          <select id="mouse">
+            <option value="None|0">None</option>
+            <option value="Logitech G102|1200">Logitech G102 - ₹1,200</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="customization">
+        <h2>Customization</h2>
+        <label>Case Color:
+          <input type="color" id="caseColor" value="#ffffff" />
+        </label>
+        <label>RGB Lighting:
+          <input type="checkbox" id="rgb" /> Add RGB (₹1500)
+        </label>
+      </section>
+
+      <div class="result">
+        <button type="button" onclick="calculatePrice()">Calculate Total</button>
+        <h3 id="total">Total: ₹0</h3>
+      </div>
+    </form>
+
+    <section id="preview">
+      <h2>Preview</h2>
+      <p>(3D Preview Coming Soon)</p>
+      <!-- You can later integrate Three.js or use 3D placeholder image here -->
+      <img src="https://dummyimage.com/600x400/ccc/000.png&text=3D+Preview" alt="Preview" />
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Nexa Custom Forge</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+
+
+<section class="latest-works" id="latest-works">
+  <div class="container">
+    <h2>Latest <span class="brand">Nexa</span> Works</h2>
+    <p class="intro">
+      Take a look at the most recent projects I've been working on, from artwork to custom PC builds and more.
+    </p>
+
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://via.placeholder.com/400x300?text=Project+1" alt="Project 1" />
+        <h3>Art Commission #1</h3>
+        <p>Custom abstract portrait work.</p>
+      </div>
+      <div class="gallery-item">
+        <img src="https://via.placeholder.com/400x300?text=Project+2" alt="Project 2" />
+        <h3>Gaming Rig Build #1</h3>
+        <p>Designed a high-performance custom gaming PC.</p>
+      </div>
+      <div class="gallery-item">
+        <img src="https://via.placeholder.com/400x300?text=Project+3" alt="Project 3" />
+        <h3>Character Design #1</h3>
+        <p>Illustrated a unique character design for a client.</p>
+      </div>
+      <div class="gallery-item">
+        <img src="https://via.placeholder.com/400x300?text=Project+4" alt="Project 4" />
+        <h3>PC Build #2</h3>
+        <p>Created a sleek creator workstation.</p>
+      </div>
+    </div>
+    
+    <a href="portfolio.html" class="btn secondary">View Full Portfolio</a>
+  </div>
+</section>
+
+
+
+
+.latest-works {
+  background-color: #111;
+  color: #f5f5f5;
+  padding: 80px 20px;
+}
+
+.latest-works .btn.secondary {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 0.75rem 1.5rem;
+  background-color: #ff4d6d;
+  border-radius: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background 0.3s ease;
+}
+
+.latest-works .btn.secondary:hover {
+  background-color: #e03e59;
+}
+
+
+.latest-works .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.latest-works h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.latest-works .brand {
+  color: #ff4d6d;
+}
+
+.latest-works .intro {
+  color: #bbb;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.gallery-item {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(255, 77, 109, 0.3);
+}
+
+.gallery-item img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.gallery-item h3 {
+  font-size: 1.2rem;
+  color: #ff4d6d;
+  margin-bottom: 0.5rem;
+}
+
+.gallery-item p {
+  color: #ccc;
+  font-size: 1rem;
+}
+
+.latest-works .btn {
+  margin-top: 30px;
+  padding: 0.75rem 1.5rem;
+  background-color: #ff4d6d;
+  border-radius: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background 0.3s ease;
+}
+
+.latest-works .btn:hover {
+  background-color: #e03e59;
+}
