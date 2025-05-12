@@ -51,7 +51,7 @@ body {
 /* Hero Section */
 .hero {
   position: relative;
-  height: 130vh;
+  height: 100vh;
   background: URL('bpy.png') no-repeat center center/cover;
   display: flex;
   align-items: center;
