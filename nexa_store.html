@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nexa Store</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyBvOXM93HXaTH8_ymWleVxYzzAhWpRfgUk",
+      authDomain: "nexa-4133c.firebaseapp.com",
+      projectId: "nexa-4133c",
+      storageBucket: "nexa-4133c.firebasestorage.app",
+      messagingSenderId: "249391586558",
+      appId: "1:249391586558:web:446956d3632b86e60c99af",
+      measurementId: "G-E4M64EMZ5J"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const storeContainer = document.getElementById("store");
+
+    async function fetchProducts() {
+      const querySnapshot = await getDocs(collection(db, "nexa-store"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${data.image}" alt="${data.name}">
+          <h3>${data.name}</h3>
+          <p class="price">₹${data.price}</p>
+          <button onclick='openModal(${JSON.stringify(data)})'>View</button>
+          <button onclick='buyNow(${JSON.stringify(data)})'>Buy Now</button>
+        `;
+        storeContainer.appendChild(card);
+      });
+    }
+
+    window.openModal = (product) => {
+      const modal = document.getElementById("modal");
+      const modalContent = document.getElementById("modal-content");
+      modalContent.innerHTML = `
+        <h2>${product.name}</h2>
+        <img src="${product.image}" alt="${product.name}" style="width:100%;border-radius:8px;">
+        <p>${product.description || 'No description available.'}</p>
+        <p><strong>Price:</strong> ₹${product.price}</p>
+        <button onclick='buyNow(${JSON.stringify(product)})'>Buy Now</button>
+        <button onclick='closeModal()'>Close</button>
+      `;
+      modal.style.display = "flex";
+    }
+
+    window.closeModal = () => {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    window.buyNow = (product) => {
+      const message = `Hi! I'm interested in:\n\n${product.name}\nPrice: ₹${product.price}\n\n${product.description || ''}`;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappLink = `https://wa.me/918849436475?text=${encodedMessage}`;
+      window.open(whatsappLink, '_blank');
+    }
+
+    fetchProducts();
+
+    const NUM_TRAILS = 5;
+const trails = [];
+
+const cursor = document.createElement('div');
+cursor.id = 'custom-cursor';
+document.body.appendChild(cursor);
+
+// Create trails
+for (let i = 0; i < NUM_TRAILS; i++) {
+  const trail = document.createElement('div');
+  trail.className = 'cursor-trail';
+  const size = 18 - i * 1.2;
+  trail.style.width = `${size}px`;
+  trail.style.height = `${size}px`;
+  trail.style.opacity = (0.1 + (i / NUM_TRAILS) * 0.2).toFixed(2);
+  document.body.appendChild(trail);
+  trails.push({
+    el: trail,
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2
+  });
+}
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function animateCursor() {
+  // Position main cursor
+  cursor.style.left = `${mouseX}px`;
+  cursor.style.top = `${mouseY}px`;
+
+  // Animate trails smoothly
+  let x = mouseX;
+  let y = mouseY;
+  trails.forEach((trail, index) => {
+    const dx = x - trail.x;
+    const dy = y - trail.y;
+    trail.x += dx * 0.25;
+    trail.y += dy * 0.25;
+
+    trail.el.style.left = `${trail.x}px`;
+    trail.el.style.top = `${trail.y}px`;
+
+    x = trail.x;
+    y = trail.y;
+  });
+
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hover effects for interactive elements
+document.querySelectorAll('button, a, .btn, input, label, textarea').forEach(el => {
+  el.style.cursor = 'none'; // Enforce no native pointer
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1.4)';
+    cursor.style.background = 'rgba(240, 240, 240, 0.95)';
+    cursor.style.boxShadow = '0 0 18px rgba(255,255,255,0.4)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    cursor.style.background = 'rgba(255, 255, 255, 0.85)';
+    cursor.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.3)';
+  });
+});
+
+// Click interaction
+document.addEventListener('mousedown', () => {
+  cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+});
+document.addEventListener('mouseup', () => {
+  cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+});
+  </script>
+  <style>
+    /* Main Custom Cursor */
+#custom-cursor {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease-out, background 0.2s;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  mix-blend-mode: difference;
+}
+
+/* Trail Dots (light gray, soft) */
+.cursor-trail {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.6); /* higher opacity white */
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  filter: blur(4px); /* strong glow */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* outer white glow */
+}
+
+    html, body, button, a, input, textarea, select, label, * {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #282727;
+      color: #f1f1f1;
+      cursor: none !important; /* Always hide system pointer */
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+    }
+
+    #store {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: #1f1f1f;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255,255,255,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .price {
+      margin: 8px 0;
+      font-weight: bold;
+      color: #00ff95;
+    }
+
+    .card button {
+      margin: 5px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #00ff95;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background: #00cc77;
+    }
+
+    #modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    #modal-content {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+
+    #modal-content button {
+      margin: 5px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #00ff95;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .back-button {
+  display: inline-block;
+  margin: 20px;
+  padding: 10px 16px;
+  background-color: #1f1f1f;
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid #094e48;
+  border-radius: 6px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #0c3f39;
+  color: #01f9aa;
+}
+
+
+    @media (max-width: 500px) {
+      .card img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Nexa Store</h1>
+  <a href="index.html" class="back-button">← Back to Home</a>
+  <div id="store"></div>
+
+  <div id="modal">
+  <div id="modal-content"></div>
+  </div>
+  <div id="custom-cursor"></div>
+</body>
+</html>
